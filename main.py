@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import time
+import sys
 
 import chess
 import chess.engine
@@ -25,18 +26,18 @@ def main():
 
     while not board.is_game_over():
         if player == 'w':
-            player_move(board, chess, vizboard)
+            player_move(board, chess, vizboard, engine)
             opponent_move(board, chess, vizboard)
             print(board, "\n")
         elif player == 'b':
             opponent_move(board, chess, vizboard)
-            player_move(board, chess, vizboard)
+            player_move(board, chess, vizboard, engine)
             print(board, "\n")
     print("game over")
     engine.quit()
+    sys.exit()
 
-def player_move(board, chess, vizboard):
-    engine = chess.engine.SimpleEngine.popen_uci("./stockfish/stockfish-ubuntu-x86-64-avx2");
+def player_move(board, chess, vizboard, engine):
     result = engine.play(board, chess.engine.Limit(time=1))
     move(str(result.move), vizboard)
     board.push(result.move)
