@@ -271,3 +271,14 @@ def initialize():
         }, 
     ]
     return board
+
+def flip(lst):
+    #a8 -> h1
+    letters="abcdefgh"
+    numbers = "12345678"
+    for square in lst:
+        initial_pos = square["pos"]
+        letter = letters[len(letters) - 1 - letters.index(initial_pos[0])]
+        number = numbers[len(numbers) - 1 - numbers.index(initial_pos[1])]
+        square["pos"] = letter+number
+
