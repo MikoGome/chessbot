@@ -27,10 +27,10 @@ def main():
     while not board.is_game_over():
         if player == 'w':
             player_move(board, chess, vizboard, engine)
-            opponent_move(board, chess, vizboard)
+            opponent_move(board, chess, vizboard, player)
             print(board, "\n")
         elif player == 'b':
-            opponent_move(board, chess, vizboard)
+            opponent_move(board, chess, vizboard, player)
             player_move(board, chess, vizboard, engine)
             print(board, "\n")
     print("game over")
@@ -42,7 +42,7 @@ def player_move(board, chess, vizboard, engine):
     move(str(result.move), vizboard)
     board.push(result.move)
 
-def opponent_move(board, chess, vizboard):
+def opponent_move(board, chess, vizboard, player):
     while True:
         if board.is_game_over():
             break
@@ -53,10 +53,15 @@ def opponent_move(board, chess, vizboard):
         opponent_move = inputArr[0]+inputArr[1]
         if chess.Move.from_uci(opponent_move) not in board.legal_moves:
             opponent_move = inputArr[1]+inputArr[0]
+        if chess.Move.from_uci(opponent_move) not in board.legal_moves:
+            if player == 'w':
+                opponent_move = inputArr[0]+inputArr[1] + 'q'
+            elif player == 'q':
+                opponent_move = inputArr[0]+inputArr[1] + 'Q'
         if chess.Move.from_uci(opponent_move) in board.legal_moves:
+            move = chess.Move.from_uci(opponent_move)
+            board.push(move)
             break
-    move = chess.Move.from_uci(opponent_move)
-    board.push(move)
     
 if __name__ == "__main__":
     main()
