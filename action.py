@@ -14,11 +14,11 @@ def move(move, board):
     time.sleep(0.1)
     subprocess.call(["xdotool", "mousemove", str(final[0]-padding), str(final[1]+padding)])
     subprocess.call(["xdotool", "click", "1"])
-    subprocess.call(["xdotool", "mousemove", "500", "10"])
+    subprocess.call(["xdotool", "mousemove", "1600", "500"])
     if len(move) > 4:
         subprocess.call(["xdotool", "mousemove", str(final[0]-padding), str(final[1]+padding)])
         subprocess.call(["xdotool", "click", "1"])
-        subprocess.call(["xdotool", "mousemove", "500", "10"])
+        subprocess.call(["xdotool", "mousemove", "1600", "500"])
 
 def convert(coord, board):
     for square in board:
